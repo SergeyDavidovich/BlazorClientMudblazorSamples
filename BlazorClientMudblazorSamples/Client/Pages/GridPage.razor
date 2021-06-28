@@ -1,0 +1,60 @@
+﻿@page "/GridPage"
+
+@using BlazorClientMudblazorSamples.Client.Services.BrowserService;
+
+@inject BrowserService browserService
+
+<MudPaper Style="margin:20px; padding:20px" Elevation="2">
+    @*<MudText Typo="Typo.body2">Window Height: @Height</MudText>*@
+    <MudText Typo="Typo.body1">Window Width: @Width</MudText>
+    <MudButton @onclick="ReadDimensions" Variant="Variant.Filled" Color="Color.Info">Get Dimensions</MudButton>
+</MudPaper>
+
+
+<MudGrid>
+    <MudItem xs="12">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=12</MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=12 sm=6</MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=12 sm=6</MudPaper>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+    </MudItem>
+    <MudItem xs="6" sm="3">
+        <MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+
+    public int Height { get; set; }
+    public int Width { get; set; }
+    public BrowserService service;
+
+    protected override async Task  OnInitializedAsync()
+    {
+
+        service = browserService;
+        await ReadDimensions();
+
+    }
+    public async Task ReadDimensions()
+    {
+        var dimension = await service.GetDimensions();
+
+        Height = dimension.Height;
+        Width = dimension.Width;
+    }
+
+}
